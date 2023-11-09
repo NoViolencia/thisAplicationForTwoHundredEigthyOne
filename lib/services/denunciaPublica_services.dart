@@ -16,10 +16,13 @@ class DenunciaPublicaServices extends ChangeNotifier{
       print('object');
     }
 
-        // Realiza el filtrado de datos
-    denunciaPublicaResults = denunciaPublicaResults.where((datum) {
+    // Realiza el filtrado de datos
+    final denunciasPublicas = denunciaPublicaResults.where((datum) {
       return datum.tipoDenuncia == 'publica'; // Reemplaza 'campo' por el campo real en tus datos
     }).toList();
+
+    // Invierte la lista de denuncias públicas
+    denunciaPublicaResults = denunciasPublicas.reversed.toList();
 
 
 

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-class welcomeScreen extends StatelessWidget {
-  const welcomeScreen({super.key});
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: _customBody(),
     );
-    
   }
 }
 
@@ -31,17 +29,16 @@ class _welcomeWidget extends StatelessWidget {
   const _welcomeWidget({
     required this.size,
   });
-
   final double size;
-
   @override
   Widget build(BuildContext context) {
+    final colors=Theme.of(context).colorScheme;
     return Container(
-      padding:const EdgeInsets.symmetric(horizontal: 20,vertical: 50),
+      padding:const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
       height: size *0.35,
       width: double.infinity,
       decoration:  BoxDecoration(
-        color: Colors.amber.shade700,
+        color: colors.primary,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(40),
           topRight: Radius.circular(40),
@@ -52,29 +49,29 @@ class _welcomeWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "WELCOME",
+            "BIENVENIDO",
             style: TextStyle(
               fontSize: 30,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w900,
             ),
           ),
           const SizedBox(
             height: 10,
           ),
           const Text(
-            "main person hunaj min soje ldoe lope mi mana ari mo lov",
+            "Por favor, inicie sesion o registrese",
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 24,
               fontWeight: FontWeight.w400,
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: 5,
           ),
           Row(
             children: [
             customButton(
-            text: "Sing In",
+            text: "Iniciar Sesion",
             color: Colors.black,
             textColor: Colors.white,
             onTap: (){
@@ -82,10 +79,10 @@ class _welcomeWidget extends StatelessWidget {
             },
             ),
             const SizedBox(
-              width: 30,
+              width: 15,
             ),
             customButton(
-            text: "Sing Up",
+            text: "Registrarse",
             color: Colors.white,
             textColor: Colors.black,
             onTap: () {
@@ -113,7 +110,7 @@ class customButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150,
+      width: 175,
       height: 50,
       child: ElevatedButton(
         onPressed: onTap, 
@@ -138,9 +135,7 @@ class _animationWidget extends StatelessWidget {
   const _animationWidget({
     required this.size,
   });
-
   final double size;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(

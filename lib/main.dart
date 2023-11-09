@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:nueva_app/presentation/screen/actividades.dart';
-import 'package:nueva_app/presentation/screen/denunciaPublica_screen.dart';
-import 'package:nueva_app/presentation/screen/institucionAyuda_screen.dart';
-import 'package:nueva_app/presentation/screen/login_screen.dart';
-import 'package:nueva_app/presentation/screen/recursos.dart';
-import 'package:nueva_app/presentation/screen/register_screen.dart';
-import 'package:nueva_app/presentation/screen/welcome_screen.dart';
+import 'package:nueva_app/config/theme/app_theme.dart';
+import 'package:nueva_app/presentation/screens/actividades/actividades.dart';
+import 'package:nueva_app/presentation/screens/administrador/administrador_screen.dart';
+import 'package:nueva_app/presentation/screens/administrador/colaborador_screen.dart';
+import 'package:nueva_app/presentation/screens/denunciaPublica/denunciaPublica_screen.dart';
+import 'package:nueva_app/presentation/screens/institucionAyuda/institucionAyuda_screen.dart';
+import 'package:nueva_app/presentation/screens/login/login_screen.dart';
+import 'package:nueva_app/presentation/screens/menu/contactos/contactos_user_screen.dart';
+import 'package:nueva_app/presentation/screens/menu/menu_screen.dart';
+import 'package:nueva_app/presentation/screens/panicBotton/panic_botton_screen.dart';
+import 'package:nueva_app/presentation/screens/recursos/recursos.dart';
+import 'package:nueva_app/presentation/screens/register/registrer_screen_tree.dart';
+import 'package:nueva_app/presentation/screens/welcome/welcome_screen.dart';
 import 'package:nueva_app/services/actividad_services.dart';
+import 'package:nueva_app/services/comentario_services.dart';
+import 'package:nueva_app/services/contactos_services.dart';
 import 'package:nueva_app/services/denunciaPublica_services.dart';
+import 'package:nueva_app/services/inicioSesion_services.dart';
 import 'package:nueva_app/services/institucionAyuda_services.dart';
 import 'package:nueva_app/services/recurso_services.dart';
+import 'package:nueva_app/services/usuario_normal_services.dart';
 import 'package:provider/provider.dart';
 
 
@@ -20,7 +30,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -34,21 +43,40 @@ class MyApp extends StatelessWidget {
           ),
         ChangeNotifierProvider(
           create: (context) => DenunciaPublicaServices(),
-          )
-    
+          ),
+        ChangeNotifierProvider(
+          create: (context) => InicioSesionServices(),
+          ),
+        ChangeNotifierProvider(
+          create: (context) => ComentarioServices(),
+          ),
+        ChangeNotifierProvider(
+          create: (context) => UsuarioNormalServices(),
+          ),
+        ChangeNotifierProvider(
+          create: (context) => ContactosServices(),
+          ),
       ],
       child: MaterialApp(
+        theme: AppTheme(selectedColor: 2).theme(),
         debugShowCheckedModeBanner: false,
         title: 'Material App',
         initialRoute: "/welcome",
         routes: {
-          "/welcome":(context) => const welcomeScreen(),
-          "/login":(context) => const loginScreen(),
-          "/register":(context) =>const registerScreen(),
-          "/actividades":(context)=>const actividades_screen(),
-          "/recursos":(context) => const recursos_screen(),
-          "/institucionAyuda":(context) =>const institucionAyudaScreen(),
-          "/denunciaPublica":(context) => const denunciaPublica_Screen()
+          "/welcome":(context) => const WelcomeScreen(),
+          "/login":(context) => const LoginScreen(),
+          "/register":(context) =>const RegistrerScreenTree(),
+          "/actividades":(context)=>const ActividadesScreen(),
+          "/recursos":(context) => const RecursosScreen(),
+          "/institucionAyuda":(context) =>const InstitucionAyudaScreen(),
+          "/denunciaPublica":(context) => const DenunciaPublicaScreen(),
+          "/administrador":(context) => const AdministradorScreen(),
+          "/colaborador":(context) => const ColaboradorScreen(),
+          "/panicBotton":(context) => const PanicBottonScreen(),
+          "/contactos":(context) => const ContactosUserScreen(),
+
+         // "/comentarioRecurso":(context) => const ComentarioRecursoScreen(),
+
         },
       
       ),
