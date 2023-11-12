@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme(selectedColor: 2).theme(),
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: "/contactos",
+        initialRoute: "/welcome",
         routes: {
           "/welcome":(context) => const WelcomeScreen(),
           "/login":(context) => const LoginScreen(),
@@ -78,7 +78,6 @@ class MyApp extends StatelessWidget {
           "/administrador":(context) => const AdministradorScreen(),
           "/colaborador":(context) => const ColaboradorScreen(),
           "/panicBotton":(context) => const PanicBottonScreen(),
-          "/contactos":(context) => const ContactosUserScreen(),
           "/denunciaUser":(context) => const DenunciaUsuarioScreen(),
 
          // "/comentarioRecurso":(context) => const ComentarioRecursoScreen(),

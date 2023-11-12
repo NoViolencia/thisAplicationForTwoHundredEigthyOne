@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nueva_app/presentation/screens/actividades/actividades.dart';
+import 'package:nueva_app/presentation/screens/menu/contactos/contactos_user_screen.dart';
 import 'package:nueva_app/presentation/screens/widget/shared/app_bar_Back_Space.dart';
 class MenuScreen extends StatelessWidget {
   final int user;
@@ -35,11 +36,12 @@ Widget build(BuildContext context) {
               }),
               _buildSizedMenuItem('Contactos', Icons.contacts, 175.0, 80.0, () {
                 // Lógica para 'Contactos'
+              Navigator.push(context,MaterialPageRoute(builder: (context) => ContactosUserScreen(idUser:user),),);
                 print('Tapped on Contactos');
               }),
             ],
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
