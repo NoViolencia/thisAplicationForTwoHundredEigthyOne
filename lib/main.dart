@@ -9,6 +9,7 @@ import 'package:nueva_app/presentation/screens/login/login_screen.dart';
 import 'package:nueva_app/presentation/screens/menu/contactos/contactos_user_screen.dart';
 import 'package:nueva_app/presentation/screens/menu/denunciaU/denuncia_usuario_screen.dart';
 import 'package:nueva_app/presentation/screens/menu/menu_screen.dart';
+import 'package:nueva_app/presentation/screens/menu/perfil/perfil_usuario_screen.dart';
 import 'package:nueva_app/presentation/screens/panicBotton/panic_botton_screen.dart';
 import 'package:nueva_app/presentation/screens/recursos/recursos.dart';
 import 'package:nueva_app/presentation/screens/register/registrer_screen_tree.dart';
@@ -20,6 +21,7 @@ import 'package:nueva_app/services/denunciaPublica_services.dart';
 import 'package:nueva_app/services/denuncia_usuario_services.dart';
 import 'package:nueva_app/services/inicioSesion_services.dart';
 import 'package:nueva_app/services/institucionAyuda_services.dart';
+import 'package:nueva_app/services/perfil_services.dart';
 import 'package:nueva_app/services/recurso_services.dart';
 import 'package:nueva_app/services/usuario_normal_services.dart';
 import 'package:provider/provider.dart';
@@ -61,6 +63,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => DenunciaUsuarioServices(),
           ),
+        ChangeNotifierProvider(
+          create: (context) => PerfilServices(),
+          ),
       ],
       child: MaterialApp(
         theme: AppTheme(selectedColor: 2).theme(),
@@ -77,7 +82,8 @@ class MyApp extends StatelessWidget {
           "/denunciaPublica":(context) => const DenunciaPublicaScreen(),
           "/administrador":(context) => const AdministradorScreen(),
           "/colaborador":(context) => const ColaboradorScreen(),
-          "/panicBotton":(context) => const PanicBottonScreen(),
+          //"/panicBotton":(context) => const PanicBottonScreen(),
+          //"/perfil":(context) => const PerfilUsuarioScreen(),
           "/denunciaUser":(context) => const DenunciaUsuarioScreen(),
 
          // "/comentarioRecurso":(context) => const ComentarioRecursoScreen(),
