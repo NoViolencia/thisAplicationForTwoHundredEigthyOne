@@ -14,6 +14,7 @@ import 'package:nueva_app/presentation/screens/panicBotton/panic_botton_screen.d
 import 'package:nueva_app/presentation/screens/recursos/recursos.dart';
 import 'package:nueva_app/presentation/screens/register/registrer_screen_tree.dart';
 import 'package:nueva_app/presentation/screens/welcome/welcome_screen.dart';
+import 'package:nueva_app/presentation/screens/widget/shared/app_Bar_generic.dart';
 import 'package:nueva_app/services/actividad_services.dart';
 import 'package:nueva_app/services/comentario_services.dart';
 import 'package:nueva_app/services/contactos_services.dart';
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
           //"/panicBotton":(context) => const PanicBottonScreen(),
           //"/perfil":(context) => const PerfilUsuarioScreen(),
           "/denunciaUser":(context) => const DenunciaUsuarioScreen(),
+          //"/appGeneric":(context) =>const AppBarGeneric(nombreAppBar: 'JUAN - JO',idUser: 71),
 
          // "/comentarioRecurso":(context) => const ComentarioRecursoScreen(),
 

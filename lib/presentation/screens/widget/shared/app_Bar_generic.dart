@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nueva_app/presentation/screens/menu/menu_screen.dart';
 import 'package:nueva_app/services/usuario_normal_services.dart';
 import 'package:provider/provider.dart';
+
+
 class AppBarGeneric extends StatelessWidget implements PreferredSizeWidget {
   final String nombreAppBar;
   final int idUser;
@@ -17,11 +19,10 @@ class AppBarGeneric extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int idUsuario = ModalRoute.of(context)!.settings.arguments as int;
+    //final int idUsuario = ModalRoute.of(context)!.settings.arguments as int;
+    final int idUsuario=idUser;
     final colors = Theme.of(context).colorScheme;
     final usuariosNormalesServices = Provider.of<UsuarioNormalServices>(context, listen: false);
-    usuariosNormalesServices.getUsuarioNormal(idUsuario);
-    //var user = usuariosNormalesServices.usuarioNormalResult;
     return AppBar(
       backgroundColor: colors.primary,
       title: Text(
@@ -33,30 +34,50 @@ class AppBarGeneric extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       automaticallyImplyLeading: false,
-      actions: <Widget>[
-        Text('id usuario: $idUser'),
-        //Text(user.usuario.nombre),
-        IconButton(
-          onPressed: () {
-             Navigator.push(
-                context,
-                MaterialPageRoute(
-                builder: (context) => MenuScreen(user:idUsuario), // Pasa la URL de la imagen del comentario
-              ),
-            );
+actions: <Widget>[
+  Row(
+    children: [
+      _buildUserImageSection(idUsuario, usuariosNormalesServices),
+      const SizedBox(width: 8), // Agregar espacio entre los elementos
+      IconButton(
+      onPressed: () {
+        _showMenu(context, idUsuario);
+      },
+      icon: const Icon(Icons.menu_rounded, color: Colors.white),
+    ),
+    ],
+  ),
+],
+    );
+  }
+  Widget _buildUserImageSection(int idUsuario, UsuarioNormalServices usuariosNormalesServices) {
+    return FutureBuilder<bool>(
+      future: usuariosNormalesServices.getUsuarioNormal(idUsuario),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (snapshot.data == true) {
+          final user = usuariosNormalesServices.usuarioNormalResult;
+          return CircleAvatar(
+            backgroundImage: NetworkImage(user.usuario.imagenPerfil),
+          );
+        } else {
+          return const Center(child: Text('Hubo un problema al obtener los datos del usuario.'));
+        }
+      },
+    );
+  }
 
-          },
-          icon: const Icon(Icons.menu_rounded, color: Colors.white),
-        ),
-        // const Card(
-        //   margin: EdgeInsets.all(8.0),
-        //   child: ListTile(
-        //   leading: CircleAvatar(
-        //   //backgroundImage: NetworkImage(user.usuario.imagenPerfil),
-        //     ),
-        //   ),
-        // ),
-      ],
+
+void _showMenu(BuildContext context, int idUsuario) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MenuScreen(user: idUsuario),
+      ),
     );
   }
 }
+
