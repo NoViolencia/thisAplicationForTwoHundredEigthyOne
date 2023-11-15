@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
           "/denunciaPublica":(context) => const DenunciaPublicaScreen(),
           "/administrador":(context) => const AdministradorScreen(),
           "/colaborador":(context) => const ColaboradorScreen(),
-          //"/panicBotton":(context) => const PanicBottonScreen(),
+          "/panicBotton":(context) => const PanicBottonScreen(),
           //"/perfil":(context) => const PerfilUsuarioScreen(),
           "/denunciaUser":(context) => const DenunciaUsuarioScreen(),
           //"/appGeneric":(context) =>const AppBarGeneric(nombreAppBar: 'JUAN - JO',idUser: 71),

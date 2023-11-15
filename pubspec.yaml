@@ -40,6 +40,10 @@ dependencies:
   http: ^1.1.0
   intl: ^0.18.1
   flutter_form_builder: ^9.1.1
+  flutter_sms:
+    path: E:\PROGRAMACION\FLUTTER\COMPLEMENTOS DE FLUTTER\flutter_sms-master
+  #flutter_sms: ^2.3.3
+  #flutter_sms: ^2.2.0
 #  image_picker: ^1.0.4
   
 
