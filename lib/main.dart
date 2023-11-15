@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme(selectedColor: 2).theme(),
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: "/welcome",
+        initialRoute: "/denunciaUser",
         routes: {
           "/welcome":(context) => const WelcomeScreen(),
           "/login":(context) => const LoginScreen(),
