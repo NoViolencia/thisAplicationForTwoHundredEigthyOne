@@ -16,6 +16,7 @@ import 'package:nueva_app/presentation/screens/register/registrer_screen_tree.da
 import 'package:nueva_app/presentation/screens/welcome/welcome_screen.dart';
 import 'package:nueva_app/presentation/screens/widget/shared/app_Bar_generic.dart';
 import 'package:nueva_app/services/actividad_services.dart';
+import 'package:nueva_app/services/comentario_post.dart';
 import 'package:nueva_app/services/comentario_services.dart';
 import 'package:nueva_app/services/contactos_services.dart';
 import 'package:nueva_app/services/denunciaPublica_services.dart';
@@ -67,12 +68,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => PerfilServices(),
           ),
+          ChangeNotifierProvider(
+          create: (context) => ComentarioPostServices(),
+          ),
       ],
       child: MaterialApp(
         theme: AppTheme(selectedColor: 2).theme(),
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: "/denunciaUser",
+        initialRoute: "/recursos",
         routes: {
           "/welcome":(context) => const WelcomeScreen(),
           "/login":(context) => const LoginScreen(),

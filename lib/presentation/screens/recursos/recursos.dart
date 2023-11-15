@@ -12,12 +12,12 @@ class RecursosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final recursoServices=Provider.of<RecursoServices>(context);
-    final int idUsuario = ModalRoute.of(context)!.settings.arguments as int;
-    //int idUsuario =29;
+    //final int idUsuario = ModalRoute.of(context)!.settings.arguments as int;
+    int idUsuario =71;
    // final colors = Theme.of(context).colorScheme;
    print('desde Recurso : $idUsuario');
     return Scaffold(
-      appBar:  AppBarGeneric(nombreAppBar: 'Recursos',idUser: idUsuario),
+     // appBar:  AppBarGeneric(nombreAppBar: 'Recursos',idUser: idUsuario),
 
       body: ListView.builder(
         itemCount: recursoServices.recursosResults.length,
@@ -59,7 +59,7 @@ class RecursosScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ComentarioRecursoScreen(indice:index, user:idUsuario), // Pasa la URL de la imagen del comentario
+                                builder: (context) => ComentarioRecursoScreen(indice:index, user:idUsuario,idRecurso:recurso.idRecurso), // Pasa la URL de la imagen del comentario
                               ),
                             );
                           },

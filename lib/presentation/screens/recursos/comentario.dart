@@ -4,15 +4,18 @@ import 'package:nueva_app/presentation/screens/widget/shared/app_bar_Back_Space.
 import 'package:nueva_app/presentation/screens/widget/shared/message_field_box.dart';
 import 'package:nueva_app/services/comentario_services.dart';
 import 'package:nueva_app/services/recurso_services.dart';
+import 'package:nueva_app/services/usuario_normal_services.dart';
 import 'package:provider/provider.dart';
 
 class ComentarioRecursoScreen extends StatelessWidget {
   final int indice;
   final int user;
+  final int idRecurso;
   const ComentarioRecursoScreen({
     super.key, 
     required this.indice,
-    required this.user
+    required this.user,
+    required this.idRecurso,
     });
   @override
   Widget build(BuildContext context) {
@@ -20,9 +23,11 @@ class ComentarioRecursoScreen extends StatelessWidget {
     final recursoServices=Provider.of<RecursoServices>(context);
     final recurso = recursoServices.recursosResults[indice];
     print('Id de usuario desde Comentarios:  $user');
-    comentarioServices.getComentarios(recurso.idRecurso); 
+    comentarioServices.getComentarios(recurso.idRecurso);
+    final usuariosNormalesServices = Provider.of<UsuarioNormalServices>(context, listen: false); 
     return Scaffold(
-      appBar: AppBarBackSpace(nombreAppBar: recurso.titulo),
+      //appBar: AppBarBackSpace(nombreAppBar: recurso.titulo),
+
 
 body: Column(
   children: [
@@ -44,13 +49,7 @@ body: Column(
                   final comentario = comentarioServices.comentarioResults[index];
                   return Card(
                     margin: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      leading: const CircleAvatar(
-                        backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkUhmWPAYfxHWH6Rh3I_VSlVoujsRx-R-tDg&usqp=CAU'),
-                      ),
-                      title: Text(comentario.idUsuario.toString()),
-                      subtitle: Text(comentario.descripcion),
-                    ),
+                    child:_buildUserAvatar(usuariosNormalesServices,comentario.idUsuario, comentario.descripcion) ,
                   );
                 },
               );
@@ -59,7 +58,7 @@ body: Column(
         ],
       ),
     ),
-    const MessageFieldBox(),
+     MessageFieldBox(indice:idRecurso, user:user),
   ],
 ),
 
@@ -67,6 +66,44 @@ body: Column(
 
     );
   }
+}
+Widget _buildUserAvatar(UsuarioNormalServices usuariosNormalesServices, int idUsuario, String comentarioDescripcion) {
+  return FutureBuilder<bool>(
+    future: usuariosNormalesServices.getUsuarioNormal(idUsuario),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const CircularProgressIndicator();
+      } else if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
+      } else if (snapshot.data == true) {
+        final user = usuariosNormalesServices.usuarioNormalResult;
+        return Row(
+          children: [
+            CircleAvatar(
+              radius: 20.0, // Puedes ajustar el tamaño del avatar cambiando este valor
+              backgroundImage: NetworkImage(user.usuario.imagenPerfil),
+            ),
+            const SizedBox(width: 8.0), // Espacio entre el avatar y el comentario
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0), // Ajusta la redondez de los bordes
+                  color: Colors.grey[300], // Puedes cambiar el color del fondo según tus preferencias
+                ),
+                child: Text(
+                  comentarioDescripcion,
+                  style: const TextStyle(fontSize: 16.0),
+                ),
+              ),
+            ),
+          ],
+        );
+      } else {
+        return const Center(child: Text('Hubo un problema al obtener los datos del usuario.'));
+      }
+    },
+  );
 }
 
 class PublicacionRecurso extends StatelessWidget {
