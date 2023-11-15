@@ -12,7 +12,7 @@ class InstitucionAyudaServices extends ChangeNotifier{
     if(res.statusCode==200){
       final resultResponse=institucionAyudaModelFromJson(res.body);
       institucionAyudaResult.addAll(resultResponse.data);
-      print('institucion ayuda enviada');
+      //print('institucion ayuda enviada');
     }else if(res.statusCode==400){
       print('object');
     }

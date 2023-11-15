@@ -31,13 +31,13 @@ class UsuarioNormalServices extends ChangeNotifier {
     // if (idUser != null) {
   }
   Future<bool> getUsuarioNormal(int idUsuario) async {
-    print(idUsuario);
+    //print(idUsuario);
     var url = 'https://render-proyecto281-backend.onrender.com/api/usuario_normal/$idUsuario';
     final res = await http.get(Uri.parse(url));
     if (res.statusCode == 200) {
       final resultResponses = usuarioNormalModelFromJson(res.body);
       usuarioNormalResult = resultResponses.data;
-      print('el usuario fue enviado');
+     // print('el usuario fue enviado');
       notifyListeners();
       return true;
     } else {

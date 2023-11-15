@@ -23,9 +23,6 @@ class ComentarioPostServices extends ChangeNotifier{
         var response =await http.post(Uri.parse(url),
         headers: <String, String>{'Content-Type': 'application/json'}, 
         body:comentarioJSON );
-        print('entro a comentarios');
-        print('estatus desde Comenaty: ${response.statusCode}');
-        print(comentarioJSON);
         if(response.statusCode==200){
         final resultResponse= jsonDecode(response.body);
         resultResponses=resultResponse;

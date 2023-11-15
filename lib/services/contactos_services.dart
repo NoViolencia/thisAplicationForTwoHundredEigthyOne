@@ -16,7 +16,7 @@ class ContactosServices extends ChangeNotifier{
       final res =await http.get(Uri.parse(url));
        //mapeamos las respuesta obtenida
       if(res.statusCode==200){
-        print('contacto enviado ..');
+        //print('contacto enviado ..');
         final resultResponse= contactosModelFromJson(res.body);
         contactosResults.addAll(resultResponse.data);
         }else if (res.statusCode==400){

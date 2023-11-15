@@ -12,12 +12,12 @@ class RecursosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final recursoServices=Provider.of<RecursoServices>(context);
-    //final int idUsuario = ModalRoute.of(context)!.settings.arguments as int;
-    int idUsuario =71;
+    final int idUsuario = ModalRoute.of(context)!.settings.arguments as int;
+    //int idUsuario =71;
    // final colors = Theme.of(context).colorScheme;
    print('desde Recurso : $idUsuario');
     return Scaffold(
-     // appBar:  AppBarGeneric(nombreAppBar: 'Recursos',idUser: idUsuario),
+      appBar:  AppBarGeneric(nombreAppBar: 'Recursos',idUser: idUsuario),
 
       body: ListView.builder(
         itemCount: recursoServices.recursosResults.length,

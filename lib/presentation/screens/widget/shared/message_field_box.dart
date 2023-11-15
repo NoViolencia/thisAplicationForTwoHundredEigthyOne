@@ -26,9 +26,9 @@ class MessageFieldBox extends StatelessWidget {
         filled: true,
         suffixIcon: IconButton(
           onPressed: () async{
-            final textvalue=textController.value.text;
+            //final textvalue=textController.value.text;
                     if (textController.value.text.isNotEmpty) {
-                                  print('valor ingresado: $textvalue');
+                         //         print('valor ingresado: $textvalue');
                       // Lógica para añadir el nuevo contacto
                       await comentarioServices.postComentarios(textController,indice , user);
                       // Mostrar SnackBar
@@ -39,6 +39,7 @@ class MessageFieldBox extends StatelessWidget {
                           duration: Duration(seconds: 2),
                         ),
                       );
+                      // ignore: use_build_context_synchronously
                       Navigator.pop(context); // Cerrar la hoja modal
                     }
 

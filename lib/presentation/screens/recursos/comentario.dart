@@ -26,7 +26,7 @@ class ComentarioRecursoScreen extends StatelessWidget {
     comentarioServices.getComentarios(recurso.idRecurso);
     final usuariosNormalesServices = Provider.of<UsuarioNormalServices>(context, listen: false); 
     return Scaffold(
-      //appBar: AppBarBackSpace(nombreAppBar: recurso.titulo),
+      appBar: AppBarBackSpace(nombreAppBar: recurso.titulo),
 
 
 body: Column(
