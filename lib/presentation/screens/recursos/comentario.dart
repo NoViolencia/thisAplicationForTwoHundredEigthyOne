@@ -91,9 +91,12 @@ Widget _buildUserAvatar(UsuarioNormalServices usuariosNormalesServices, int idUs
                   borderRadius: BorderRadius.circular(10.0), // Ajusta la redondez de los bordes
                   color: Colors.grey[300], // Puedes cambiar el color del fondo según tus preferencias
                 ),
-                child: Text(
-                  comentarioDescripcion,
-                  style: const TextStyle(fontSize: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(user.usuario.nombreUsuario, style: const TextStyle(fontSize:17,fontWeight: FontWeight.bold),),
+                    Text(comentarioDescripcion,style: const TextStyle(fontSize: 16.0),),
+                  ],
                 ),
               ),
             ),

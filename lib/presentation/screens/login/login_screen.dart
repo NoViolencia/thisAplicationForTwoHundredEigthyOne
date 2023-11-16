@@ -252,7 +252,7 @@ class _CustomButtonRegistrer extends StatelessWidget {
     final rol=resultResponses['data']['rol'].toString();
     final int idUsuario =resultResponses['data']['id_usuario'];
     if(rol=='usuario_normal'){
-        Navigator.pushNamed(context,'/actividades',arguments: idUsuario,);// Aquí envías el idUsuario como argumento
+        Navigator.pushReplacementNamed(context, '/actividades', arguments: idUsuario);// Aquí envías el idUsuario como argumento
   //);
     }else if(rol=='administrador'){
       Navigator.pushNamed(context, '/administrador');

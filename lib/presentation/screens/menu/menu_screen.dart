@@ -31,11 +31,11 @@ Widget build(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildSizedMenuItem('Mis Denuncias', Icons.assignment, 175.0, 80.0, () {
+              _buildSizedMenuItem('Mis Denuncias', Icons.assignment, 169.0, 80.0, () {
                 // Lógica para 'Mis Denuncias'
                 print('Tapped on Mis Denuncias');
               }),
-              _buildSizedMenuItem('Contactos', Icons.contacts, 175.0, 80.0, () {
+              _buildSizedMenuItem('Contactos', Icons.contacts, 169.0, 80.0, () {
                 // Lógica para 'Contactos'
               Navigator.push(context,MaterialPageRoute(builder: (context) => ContactosUserScreen(idUser:user),),);
               }),
@@ -45,11 +45,11 @@ Widget build(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildSizedMenuItem('Actividades', Icons.accessibility_new, 175.0, 80.0, () {
+              _buildSizedMenuItem('Actividad', Icons.accessibility_new, 169.0, 80.0, () {
                 // Lógica para 'Actividades'
                   Navigator.pushNamed(context,'/actividades',arguments: user,);
               }),
-              _buildSizedMenuItem('Denuncias Públicas', Icons.public, 175.0, 80.0, () {
+              _buildSizedMenuItem('Denuncias Públicas', Icons.public, 169.0, 80.0, () {
                 // Lógica para 'Denuncias Públicas'
                 Navigator.pushNamed(context, '/denunciaPublica',arguments: user,);
               }),
@@ -59,12 +59,12 @@ Widget build(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildSizedMenuItem('Botón del Pánico', Icons.warning, 175.0, 80.0, () {
+              _buildSizedMenuItem('Botón del Pánico', Icons.warning, 169.0, 80.0, () {
                 // Lógica para 'Botón del Pánico'
                 Navigator.pushNamed(context, '/panicBotton',arguments: user,);
                 print('Tapped on Botón del Pánico');
               }),
-              _buildSizedMenuItem('Recursos', Icons.library_books, 175.0, 80.0, () {
+              _buildSizedMenuItem('Recursos', Icons.library_books, 169.0, 80.0, () {
                 // Lógica para 'Recursos'
                 Navigator.pushNamed(context, '/recursos',arguments: user,);
               }),
@@ -84,7 +84,7 @@ Widget build(BuildContext context) {
 Widget _buildSizedMenuItem(String title, IconData icon, double width, double height, VoidCallback onTap) {
   return Container(
     decoration: BoxDecoration(
-      color: Color.fromARGB(255, 171, 248, 225),
+      color: Color.fromARGB(255, 231, 244, 240),
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: Colors.black),
     ),

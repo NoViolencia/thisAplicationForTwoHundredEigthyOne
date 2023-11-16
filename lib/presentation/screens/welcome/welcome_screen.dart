@@ -75,11 +75,12 @@ class _welcomeWidget extends StatelessWidget {
             color: Colors.black,
             textColor: Colors.white,
             onTap: (){
-              Navigator.pushNamed(context, "/login");
+              //Navigator.pushNamed(context, "/login");
+              Navigator.pushReplacementNamed(context, '/login');
             },
             ),
             const SizedBox(
-              width: 15,
+              width: 10,
             ),
             customButton(
             text: "Registrarse",
@@ -110,7 +111,7 @@ class customButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 175,
+      width: 165,
       height: 50,
       child: ElevatedButton(
         onPressed: onTap, 
@@ -122,7 +123,7 @@ class customButton extends StatelessWidget {
           text,
         style: TextStyle(
           color: textColor,
-          fontSize: 20,
+          fontSize: 18,
           fontWeight: FontWeight.bold,
         ),
         ),

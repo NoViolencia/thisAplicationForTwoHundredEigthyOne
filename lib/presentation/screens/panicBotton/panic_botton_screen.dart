@@ -30,16 +30,16 @@ class PanicBottonScreen extends StatelessWidget {
             shape:const  CircleBorder(),
             primary: Colors.red, // Color de fondo rojo
             onPrimary: Colors.white, // Color del texto blanco
-            side:const BorderSide(color: Colors.white, width: 4), // Borde blanco más grueso
+            side:const BorderSide(color: Colors.white, width: 15), // Borde blanco más grueso
             padding:const EdgeInsets.all(30.0), // Aumenta el espacio dentro del botón
           ),
           child: Container(
-            width: 200, // Ajusta según tus necesidades
-            height: 200, // Ajusta según tus necesidades
+            width: 250, // Ajusta según tus necesidades
+            height: 250, // Ajusta según tus necesidades
             alignment: Alignment.center,
             child:const Text(
               '¡AYUDA!',
-              style: TextStyle(fontSize: 24), // Aumenta el tamaño de la letra
+              style: TextStyle(fontSize: 45), // Aumenta el tamaño de la letra
             ),
           ),
         ),

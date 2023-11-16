@@ -25,6 +25,7 @@ import 'package:nueva_app/services/inicioSesion_services.dart';
 import 'package:nueva_app/services/institucionAyuda_services.dart';
 import 'package:nueva_app/services/perfil_services.dart';
 import 'package:nueva_app/services/recurso_services.dart';
+import 'package:nueva_app/services/registrer_post_services.dart';
 import 'package:nueva_app/services/usuario_normal_services.dart';
 import 'package:provider/provider.dart';
 
@@ -70,6 +71,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
           create: (context) => ComentarioPostServices(),
+          ),
+        ChangeNotifierProvider(
+          create: (context) => RegistrerPostServices(),
           ),
       ],
       child: MaterialApp(

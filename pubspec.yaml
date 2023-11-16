@@ -44,6 +44,8 @@ dependencies:
     path: E:\PROGRAMACION\FLUTTER\COMPLEMENTOS DE FLUTTER\flutter_sms-master
   geolocator: ^10.1.0
   permission_handler: ^11.0.1
+  image_picker: ^1.0.4
+  http_parser: ^4.0.2
   #fluttertoast: ^8.2.4
   #flutter_sms: ^2.3.3
   #flutter_sms: ^2.2.0

@@ -1,5 +1,12 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:nueva_app/services/registrer_post_services.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 class RegistrerScreenTree extends StatelessWidget {
   const RegistrerScreenTree({super.key});
 
@@ -75,7 +82,7 @@ class RegistrerScreenTree extends StatelessWidget {
                   )
                 ],
               ) ,
-              child: const Column(
+              child: Column(
                 children: [
                   MyCustomForm(),
 
@@ -94,67 +101,194 @@ class RegistrerScreenTree extends StatelessWidget {
 
 // Create a Form widget.
 class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key});
+  MyCustomForm({super.key});
   @override
   MyCustomFormState createState() {
     return MyCustomFormState();
   }
 }
+enum Genero { masculino, femenino, otro }
+
 
 class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController nombre=TextEditingController();
-  TextEditingController apellido=TextEditingController();
-  TextEditingController materno=TextEditingController();
-  TextEditingController ci=TextEditingController();
-  TextEditingController genero=TextEditingController();
-  TextEditingController fechaNaci=TextEditingController();
-  TextEditingController direccion=TextEditingController();
-  TextEditingController email=TextEditingController();
-  TextEditingController celular=TextEditingController();
-  TextEditingController nomUser=TextEditingController();
-  TextEditingController pass=TextEditingController();
-  TextEditingController repitPass=TextEditingController();
+  //final _formKey = GlobalKey<FormBuilderState>();
+  TextEditingController nombre = TextEditingController();
+  TextEditingController apellido = TextEditingController();
+  TextEditingController materno = TextEditingController();
+  TextEditingController ci = TextEditingController();
+  Genero selectedGenero = Genero.masculino;
+  DateTime fechaNaci=DateTime.now(); // Puedes usar DateTime? para permitir nulos
+  TextEditingController direccion = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController celular = TextEditingController();
+  TextEditingController nomUser = TextEditingController();
+  TextEditingController pass = TextEditingController();
+  TextEditingController repitPass = TextEditingController();
+  bool imageSelected = false;
+  DateTime? selectedDate ;
+  PickedFile? selectedImage;
+  TextEditingController fechaNaciController = TextEditingController();
+  //PickedFile selectedImage= PickedFile('assets/perfil.jpg'); // Puedes usar PickedFile? para permitir nulos
+  //late PickedFile selectedImage;
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return FormBuilder(
       key: _formKey,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 40,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            _imagenPerfil(),
+            const SizedBox(height: 15),
+            _generoDropdown(),
+            const SizedBox(height: 15),
+            FormBuilderDateTimePicker(
+              name: 'fechaNac',
+              inputType: InputType.date,
+              format: DateFormat('yyyy-MM-dd'),
+              decoration: const InputDecoration(labelText: 'Fecha de nacimiento'),
+              controller: fechaNaciController,
+              onChanged: (value) => setState(() {
+                selectedDate=value;
+              }),
+                // onChanged: (DateTime value) {
+                //   setState(() {
+                //     selectedDate = value; // Almacena la fecha seleccionada
+                //   });
+                // },
+            ),
+            const SizedBox(height: 15),
             _nombre(nombre),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 15),
             _apellido(apellido),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 15),
             _materno(materno),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 15),
             _ci(ci),
-            const SizedBox(height: 15,),
-            _genero(genero),
-            const SizedBox(height: 15,),
-            _fechaNaci(fechaNaci),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 15),
             _direccion(direccion),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 15),
             _email(email),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 15),
             _celular(celular),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 15),
             _nomUser(nomUser),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 15),
             _pass(pass),
-            const SizedBox(height: 15,),
-            _repitPass(repitPass,pass),
-            const SizedBox(height: 15,),
-            _CustomButtonRegistrer(formKey: _formKey, nombre: nombre, apellido: apellido),
+            const SizedBox(height: 15),
+            _repitPass(repitPass, pass),
+            const SizedBox(height: 15),
+            _CustomButtonRegistrer(
+              formKey: _formKey,
+              nombre: nombre,
+              apellido: apellido,
+              materno: materno,
+              ci: ci,
+              selectedGenero: selectedGenero,
+              fechaNaci: selectedDate ??DateTime.now(),
+              direccion: direccion,
+              email: email,
+              celular: celular,
+              nomUser: nomUser,
+              pass: pass,
+              repitPass: repitPass,
+              imageSelected: imageSelected,
+              selectedImage: selectedImage ?? PickedFile('assets/perfil.jpg'),
+            ),
           ],
         ),
       ),
     );
   }
 
+
+
+Widget _imagenPerfil() {
+  return Column(
+    children: [
+      InkWell(
+        onTap: () async {
+          final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+          setState(() {
+            if (pickedImage != null) {
+              selectedImage = PickedFile(pickedImage.path);
+              imageSelected = true;
+            } else {
+              // El usuario canceló la selección de imagen.
+              // Aquí puedes manejarlo de acuerdo a tus necesidades.
+            }
+          });
+        },
+        child: Container(
+          width: 150,
+          height: 150,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.grey.shade200,
+            image: selectedImage != null
+                ? DecorationImage(
+                    image: FileImage(File(selectedImage!.path)),
+                    fit: BoxFit.cover,
+                  )
+                : null,
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (selectedImage == null) // Mostrar el icono solo si no hay una imagen seleccionada
+                  const Icon(
+                    Icons.camera_alt,
+                    size: 40,
+                    color: Colors.grey,
+                  ),
+                if (selectedImage == null) // Mostrar el texto solo si no hay una imagen seleccionada
+                  const SizedBox(height: 8),
+                if (selectedImage == null) // Mostrar el texto solo si no hay una imagen seleccionada
+                  const Text(
+                    'Subir Imagen',
+                    style: TextStyle(fontSize: 12),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      if (selectedImage != null) const SizedBox(height: 15),
+    ],
+  );
+}
+
+
+Widget _generoDropdown() {
+    return DropdownButtonFormField<Genero>(
+      value: selectedGenero,
+      onChanged: (Genero? value) {
+        setState(() {
+          selectedGenero = value!;
+        });
+      },
+      items: const [
+        DropdownMenuItem(
+          value: Genero.masculino,
+          child: Text('Masculino'),
+        ),
+        DropdownMenuItem(
+          value: Genero.femenino,
+          child: Text('Femenino'),
+        ),
+        DropdownMenuItem(
+          value: Genero.otro,
+          child: Text('Otro'),
+        ),
+      ],
+      decoration:const  InputDecoration(
+        labelText: 'Género',
+      ),
+    );
+  }
 
 
   TextFormField _apellido(TextEditingController value) {
@@ -272,35 +406,7 @@ class MyCustomFormState extends State<MyCustomForm> {
       ),
     );
   }
-  TextFormField _genero(TextEditingController value) {
-    return TextFormField(
-      controller: value,
-      autovalidateMode: AutovalidateMode.disabled,
-        validator: (value){
-        if(value!.isEmpty){
-          return"este campo es obligatorio";
 
-        }
-      },
-      
-      decoration: InputDecoration(
-        hintText: 'Genero',
-        focusedBorder:OutlineInputBorder(
-          borderRadius: BorderRadius.circular(40),
-          borderSide: BorderSide.none
-        ) ,
-        enabledBorder:OutlineInputBorder(
-          borderRadius: BorderRadius.circular(40),
-          borderSide: BorderSide.none
-        ) ,
-        border:OutlineInputBorder(
-          borderRadius: BorderRadius.circular(40)
-        ) ,
-        filled: true,
-        fillColor:Colors.grey.shade200
-      ),
-    );
-  }
   TextFormField _fechaNaci(TextEditingController value) {
     return TextFormField(
       controller: value,
@@ -510,26 +616,68 @@ class _CustomButtonRegistrer extends StatelessWidget {
     required GlobalKey<FormState> formKey,
     required this.nombre,
     required this.apellido,
+    required this.materno,
+    required this.ci,
+    required this.selectedGenero,
+    required this.fechaNaci,
+    required this.direccion,
+    required this.email,
+    required this.celular,
+    required this.nomUser,
+    required this.repitPass,
+    required this.pass,
+    required this.imageSelected,
+    required this.selectedImage,
   }) : _formKey = formKey;
 
   final GlobalKey<FormState> _formKey;
   final TextEditingController nombre;
   final TextEditingController apellido;
+  final TextEditingController materno;
+  final TextEditingController ci;
+  final Genero selectedGenero;
+  final DateTime fechaNaci;
+  final TextEditingController direccion;
+  final TextEditingController email;
+  final TextEditingController celular;
+  final TextEditingController nomUser;
+  final TextEditingController repitPass;
+  final TextEditingController pass;
+  final bool imageSelected;
+  final PickedFile selectedImage;
+
 
   @override
   Widget build(BuildContext context) {
+    final registerServices = Provider.of<RegistrerPostServices>(context,listen: false);
     return Container(
       padding:const EdgeInsets.symmetric(horizontal: 30),
       width: double.infinity,
       height: 55,
       child: ElevatedButton(
-        onPressed: (){
-          if(_formKey.currentState!.validate()){
-            print('Inicio de sesion exitoso');
-            print(nombre.text);
-            print(apellido.text);
-
-         }
+        onPressed: () async {
+          print(selectedGenero.toString());
+          if(repitPass.text.toString()== pass.text.toString()){
+               bool success= await registerServices.postRegister(nombre.text.toString(),celular.text.toString(),ci.text.toString(),fechaNaci,selectedGenero.toString(),email.text.toString(),direccion.text.toString(),nomUser.text.toString(),pass.text.toString(),selectedImage,apellido.text.toString(),materno.text.toString());
+               if(success){
+                  // ignore: use_build_context_synchronously
+                  ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Contacto agregado'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                  // ignore: use_build_context_synchronously
+                  Navigator.pushNamed(context, '/login');
+               }
+          }else{
+              //   ScaffoldMessenger.of(context).showSnackBar(
+              //   const SnackBar(
+              //     content: Text('Contraseñas no Coinciden'),
+              //     duration: Duration(seconds: 2),
+              //   ),
+              // );
+          }
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.black,
